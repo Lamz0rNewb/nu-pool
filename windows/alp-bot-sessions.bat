@@ -6,6 +6,9 @@
 ::
 :: version 0.45 prepared southxchange bot
 ::
+:: version 0.50 moved fixed cost pool client-bter-cny-fix-payout-test to
+::		client-bter-btc-fix-payout-test
+::
 ::
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::
@@ -58,9 +61,9 @@ set cwd=%cd%
 ::cd %cwd%\nupond_bter_cny\
 ::start client-bter-cny.bat
 ::
-:: client-bter-cny-fix-payout-test bot; remove "::" from the next two lines to use it
-::cd %cwd%\client-bter-cny-fix-payout-test\
-::start client-bter-cny-fix-payout-test.bat
+:: client-bter-btc-fix-payout-test bot; remove "::" from the next two lines to use it
+::cd %cwd%\client-bter-btc-fix-payout-test\
+::start client-bter-btc-fix-payout-test.bat
 ::
 :: nupool_bittrex_btc bot; remove "::" from the next two lines to use it
 ::cd %cwd%\nupool_bittrex_btc\

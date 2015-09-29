@@ -16,6 +16,9 @@
 #
 # version 0.50 - prepared southxchange ("southx") bots
 #
+# version 0.55 - moved fixed cost pool nupond_bter_cny_fix_payout_test to
+#               nupond_bter_btc_fix_payout_test
+#
 ##########################################################################################
 
 cwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -97,7 +100,7 @@ if [ -d "$pool09logdir" ]; then
         pool09log=`ls -t $pool09logdir | head -n 1`
 fi
 
-pool10name="nupond_bter_cny_fix_payout_test"
+pool10name="nupond_bter_btc_fix_payout_test"
 pool10logdir=$cwd/$pool10name/logs/
 if [ -d "$pool10logdir" ]; then
         pool10log=`ls -t $pool10logdir | head -n 1`
