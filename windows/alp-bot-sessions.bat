@@ -9,6 +9,9 @@
 :: version 0.50 moved fixed cost pool client-bter-cny-fix-payout-test to
 ::		client-bter-btc-fix-payout-test
 ::
+:: version 0.60 - removed nupond_bter_btc_fix_payout_test because nupond_bter_btc is now
+::              fixed cost
+::
 ::
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::
@@ -53,6 +56,14 @@ set cwd=%cd%
 ::cd %cwd%\liquidbits_ccedk_usd\
 ::start client-ccedk-usd.bat
 ::
+:: liquidbits_southx_btc bot; remove "::" from the next two lines to use it
+::cd %cwd%\liquidbits_southx_btc
+::start client-southx-btc.bat
+::
+:: liquidbits_southx_usd bot; remove "::" from the next two lines to use it
+::cd %cwd%\liquidbits_southx_usd
+::start client-southx-usd.bat
+::
 :: nupond_bter_btc bot; remove "::" from the next two lines to use it
 ::cd %cwd%\nupond_bter_btc\
 ::start client-bter-btc.bat
@@ -60,10 +71,6 @@ set cwd=%cd%
 :: nupond_bter_cny bot; remove "::" from the next two lines to use it
 ::cd %cwd%\nupond_bter_cny\
 ::start client-bter-cny.bat
-::
-:: client-bter-btc-fix-payout-test bot; remove "::" from the next two lines to use it
-::cd %cwd%\client-bter-btc-fix-payout-test\
-::start client-bter-btc-fix-payout-test.bat
 ::
 :: nupool_bittrex_btc bot; remove "::" from the next two lines to use it
 ::cd %cwd%\nupool_bittrex_btc\
@@ -80,8 +87,4 @@ set cwd=%cd%
 :: nuriver_cryptsy_usd bot; remove "::" from the next two lines to use it
 ::cd %cwd%\nuriver_cryptsy_usd
 ::start client-cryptsy-usd.bat
-::
-:: liquidbits_southx_btc bot; remove "::" from the next two lines to use it
-::cd %cwd%\liquidbits_southx_btc
-::start client-southx-btc.bat
 
