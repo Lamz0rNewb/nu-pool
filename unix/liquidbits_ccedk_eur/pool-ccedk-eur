@@ -47,7 +47,6 @@ fillfactor = 10000
 
 ### GENERAL OPERATION PARAMETERS - DO NOT CHANGE ###
 
-#server=eu.nupool.net
 server=nbt.liquidbits.net
 unit=eur
 exchange=ccedk

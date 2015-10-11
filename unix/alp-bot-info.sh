@@ -19,9 +19,10 @@
 # version 0.55 - moved fixed cost pool nupond_bter_cny_fix_payout_test to
 #               nupond_bter_btc_fix_payout_test
 #
+# version 0.60 - simplified the script by using an array for the pools
+#
+#
 ##########################################################################################
-
-cwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 ##########################################################################################
 
@@ -45,120 +46,37 @@ cwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 
 # Some variables - additional ALP bots might be appended following the same style
+cwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-pool01name="liquidbits_ccedk_btc"
-pool01logdir=$cwd/$pool01name/logs/
-if [ -d "$pool01logdir" ]; then
-        pool01log=`ls -t $pool01logdir | head -n 1`
-fi
+alp_bot_array=(
+liquidbits_ccedk_btc
+liquidbits_ccedk_eur
+liquidbits_ccedk_usd
+liquidbits_southx_usd
+liquidbits_southx_btc
+nupond_bter_btc
+nupond_bter_cny
+nupool_bittrex_btc
+nupool_poloniex_btc
+nuriver_cryptsy_btc
+nuriver_cryptsy_usd )
 
-pool02name="liquidbits_ccedk_eur"
-pool02logdir=$cwd/$pool02name/logs/
-if [ -d "$pool02logdir" ]; then
-        pool02log=`ls -t $pool02logdir | head -n 1`
-fi
-
-pool03name="liquidbits_ccedk_usd"
-pool03logdir=$cwd/$pool03name/logs/
-if [ -d "$pool03logdir" ]; then
-        pool03log=`ls -t $pool03logdir | head -n 1`
-fi
-
-pool04name="nupond_bter_btc"
-pool04logdir=$cwd/$pool04name/logs/
-if [ -d "$pool04logdir" ]; then
-        pool04log=`ls -t $pool04logdir | head -n 1`
-fi
-
-pool05name="nupond_bter_cny"
-pool05logdir=$cwd/$pool05name/logs/
-if [ -d "$pool05logdir" ]; then
-        pool05log=`ls -t $pool05logdir | head -n 1`
-fi
-
-pool06name="nupool_bittrex_btc"
-pool06logdir=$cwd/$pool06name/logs/
-if [ -d "$pool06logdir" ]; then
-        pool06log=`ls -t $pool06logdir | head -n 1`
-fi
-
-pool07name="nupool_poloniex_btc"
-pool07logdir=$cwd/$pool07name/logs/
-if [ -d "$pool07logdir" ]; then
-        pool07log=`ls -t $pool07logdir | head -n 1`
-fi
-
-pool08name="nuriver_cryptsy_btc"
-pool08logdir=$cwd/$pool08name/logs/
-if [ -d "$pool08logdir" ]; then
-        pool08log=`ls -t $pool08logdir | head -n 1`
-fi
-
-pool09name="nuriver_cryptsy_usd"
-pool09logdir=$cwd/$pool09name/logs/
-if [ -d "$pool09logdir" ]; then
-        pool09log=`ls -t $pool09logdir | head -n 1`
-fi
-
-pool10name="nupond_bter_btc_fix_payout_test"
-pool10logdir=$cwd/$pool10name/logs/
-if [ -d "$pool10logdir" ]; then
-        pool10log=`ls -t $pool10logdir | head -n 1`
-fi
-
-pool11name="liquidbits_southx_btc"
-pool11logdir=$cwd/$pool11name/logs/
-if [ -d "$pool11logdir" ]; then
-        pool11log=`ls -t $pool11logdir | head -n 1`
-fi
-
-#
-# And here starts the part with the outputs
-# Just uncomment each ALP bot you want to have in the overview
-#
+n=0
 
 date
-#echo "### $pool01name ###"
-#echo $pool01logdir$pool01log
-#tail -n 10 $pool01logdir$pool01log | sort -r | grep balance | head -n 1 && echo
 
-#echo "### $pool02name ###"
-#echo $pool02logdir$pool02log
-#tail -n 10 $pool02logdir$pool02log | sort -r | grep balance | head -n 1 && echo
-
-#echo "### $pool03name ###"
-#echo $pool03logdir$pool03log
-#tail -n 10 $pool03logdir$pool03log | sort -r | grep balance | head -n 1 && echo
-
-#echo "### $pool04name ###"
-#echo $pool04logdir$pool04log
-#tail -n 10 $pool04logdir$pool04log | sort -r | grep balance | head -n 1 && echo
-
-#echo "### $pool05name ###"
-#echo $pool05logdir$pool05log
-#tail -n 10 $pool05logdir$pool05log | sort -r | grep balance | head -n 1 && echo
-
-#echo "### $pool06name ###"
-#echo $pool06logdir$pool06log
-#tail -n 10 $pool06logdir$pool06log | sort -r | grep balance | head -n 1 && echo
-
-#echo "### $pool07name ###"
-#echo $pool07logdir$pool07log
-#tail -n 10 $pool07logdir$pool07log | sort -r | grep balance | head -n 1 && echo
-
-#echo "### $pool08name ###"
-#echo $pool08logdir$pool08log
-#tail -n 10 $pool08logdir$pool08log | sort -r | grep balance | head -n 1 && echo
-
-#echo "### $pool09name ###"
-#echo $pool09logdir$pool09log
-#tail -n 10 $pool09logdir$pool09log | sort -r | grep balance | head -n 1 && echo
-
-#echo "### $pool10name ###"
-#echo $pool10logdir$pool10log
-#tail -n 10 $pool10logdir$pool10log | sort -r | grep balance | head -n 1 && echo
-
-#echo "### $pool11name ###"
-#echo $pool11logdir$pool11log
-#tail -n 10 $pool11logdir$pool11log | sort -r | grep balance | head -n 1
-
+for bot in "${alp_bot_array[@]}"
+do
+	poolname="${alp_bot_array[$n]}"
+#	echo $poolname
+	poollogdir=$cwd/$poolname/logs/
+#	echo $poollogdir
+	if [ -d $poollogdir ]; then
+        	poollog=`ls -t $poollogdir | head -n 1`
+#		echo $poollog
+		echo "### $poolname ###"
+		echo $poollogdir$poollog
+		tail -n 10 $poollogdir$poollog | sort -r | grep ask | head -n 1 && echo
+	fi
+	((n++))
+done

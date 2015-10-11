@@ -16,6 +16,9 @@
 # version 0.55 - moved fixed cost pool nupond_bter_cny_fix_payout_test to
 #               nupond_bter_btc_fix_payout_test
 #
+# version 0.60 - removed nupond_bter_btc_fix_payout_test because nupond_bter_btc is now
+#               fixed cost
+#
 ##########################################################################################
 
 cwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) # <-- Do not edit this!
@@ -46,13 +49,14 @@ cwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) # <-- Do not edit this!
 #liquidbits_ccedk_btc=$cwd/liquidbits_ccedk_btc
 #liquidbits_ccedk_eur=$cwd/liquidbits_ccedk_eur
 #liquidbits_ccedk_usd=$cwd/liquidbits_ccedk_usd
+#liquidbits_southx_btc=$cwd/liquidbits_southx_btc
+#liquidbits_southx_usd=$cwd/liquidbits_southx_usd
 #nupond_bter_btc=$cwd/nupond_bter_btc
 #nupond_bter_cny=$cwd/nupond_bter_cny
-#nupond_bter_btc_fix_payout_test=$cwd/nupond_bter_btc_fix_payout_test
 #nupool_bittrex_btc=$cwd/nupool_bittrex_btc
 #nupool_poloniex_btc=$cwd/nupool_poloniex_btc
 #nuriver_cryptsy_btc=$cwd/nuriver_cryptsy_btc
-#liquidbits_southx_btc="$cwd/liquidbits_southx_btc
+#nuriver_cryptsy_usd=$cwd/nuriver_cryptsy_usd
 
 
 # The next section deals with starting screen sesssions and running ALP bots within
@@ -93,12 +97,14 @@ cd $liquidbits_ccedk_eur
 screen -dmS liquidbits_ccedk_eur ./client-ccedk-eur
 cd $liquidbits_ccedk_usd
 screen -dmS liquidbits_ccedk_usd ./client-ccedk-usd
+cd $liquidbits_southx_btc
+screen -dmS liquidbits_southx_btc ./client-southx-btc
+cd $liquidbits_southx_usd
+screen -dmS liquidbits_southx_usd ./client-southx-usd
 cd $nupond_bter_btc
 screen -dmS nupond_bter_btc ./client-bter-btc
 cd $nupond_bter_cny
 screen -dmS nupond_bter_cny ./client-bter-cny
-cd $nupond_bter_btc_fix_payout_test
-screen -dmS nupond_bter_btc_fix_payout_test ./client-bter-btc-fix-payout-test
 cd $nupool_bittrex_btc
 screen -dmS nupool_bittrex_btc  ./client-bittrex-btc
 cd $nupool_poloniex_btc
@@ -107,8 +113,6 @@ cd $nuriver_cryptsy_btc
 screen -dmS nuriver_cryptsy_btc ./client-cryptsy-btc
 cd $nuriver_cryptsy_usd
 screen -dmS nuriver_cryptsy_usd ./client-cryptsy-usd
-cd $liquidbits_southx_btc
-screen -dmS liquidbits_southx_btc ./client-southx-btc
 
 sleep 2
 screen -ls
