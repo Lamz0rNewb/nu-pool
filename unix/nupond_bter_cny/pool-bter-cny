@@ -35,10 +35,13 @@ ordermatch = True
 deviation = 0.0015
 
 # Determines market spread
-offset = 0.006
+offset = 0.004
 
 # Sets time (in hours) between bot resets. [bug fixer]
-restime = 0.25
+reset_timer = 0.5
+
+# Maximum NBT to place on sell side
+fillfactori = 10000
 
 
 
