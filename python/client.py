@@ -125,7 +125,8 @@ class Client(ConnectionThread):
         self.lock = threading.Lock()
 
     def set(self, key, secret, address, name, unit, bid=None, ask=None, bot='pybot', ordermatch=True,
-            deviation=0.0025, reset_timer=0, offset=0.002, shift=0.0, fillfactor=10000):
+            deviation=0.0025, reset_timer=0.0, offset=0.002, 
+	    shift={'auto':0.0,'manual':0.0}, fillamount={'bid':10000,'ask':10000}, skew=0.0):
         if not name in self.exchangeinfo or not unit in self.exchangeinfo[name]:
             return False
         key = str(key)
@@ -159,7 +160,7 @@ class Client(ConnectionThread):
                                                    self.users[key][unit]['request'], key,
                                                    secret, exchange, unit, target,
                                                    self.logger, ordermatch, deviation,
-                                                   reset_timer, offset, shift, fillfactor)
+                                                   reset_timer, offset, shift, fillamount,skew)
         else:
             self.logger.error("unknown order handler: %s", bot)
             self.users[key][unit]['order'] = None
@@ -263,7 +264,7 @@ class Client(ConnectionThread):
                                         if response['units'][unit]['last_error'] != "":
                                             if 'deviates too much from current price' in response['units'][unit][
                                                 'last_error']:
-                                                PyBot.pricefeed.price(unit, True)  # force a price update
+                                                PyBot.pricefeed.price(unit,skew, True)  # force a price update
                                                 if self.users[user][unit]['order']: self.users[user][unit][
                                                     'order'].shutdown()
                                                 self.logger.warning(
@@ -284,8 +285,6 @@ class Client(ConnectionThread):
                                                 self.users[user][unit]['request'].sampling = self.users[user][unit][
                                                                                                  'request'].sampling + 1
                                                 self.logger.warning('increasing sampling to %d',
-                                                                    unit,
-                                                                    repr(self.users[user][unit]['request'].exchange),
                                                                     self.users[user][unit]['request'].sampling)
                                     if response['units'][unit]['missing'] / float(self.basestatus[
                                         'sampling']) >= 0.05:  # look for missing error and adjust sampling
@@ -368,8 +367,9 @@ if __name__ == "__main__":
                     reset_timer = 0 if 'reset_timer' not in configdata else configdata[
                         'reset_timer']
                     offset = 0.002 if 'offset' not in configdata else configdata['offset']	
-		    shift = 0.0 if 'shift' not in configdata else configdata['shift']
-		    fillfactor = 10000 if 'fillfactor' not in configdata else configdata['fillfactor']
+		    shift = {'auto':0.0,'manual':0.0} if 'shift' not in configdata else configdata['shift']
+		    fillamount = {'bid':10000,'ask':10000} if 'fillamount' not in configdata else configdata['fillamount']
+		    skew = 0.0 if 'skew' not in configdata else configdata['skew']
                     if 'server' in configdata:
                         if 'apikey' in configdata:
                             if 'apisecret' in configdata:
@@ -382,7 +382,7 @@ if __name__ == "__main__":
                                                 client.set(configdata['apikey'], configdata['apisecret'],
                                                            configdata['address'], name, configdata['unit'].lower(), bid,
                                                            ask, bot, ordermatch,
-                                                           deviation, reset_timer, offset, shift, fillfactor)
+                                                           deviation, reset_timer, offset, shift, fillamount,skew)
                                             else:
                                                 logger.error("unknown exchange: %s", name)
                                         else:
